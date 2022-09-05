@@ -4,11 +4,16 @@ package retries.options.gloo.solo.io;
 
 option go_package = "github.com/solo-io/gloo/projects/gloo/pkg/api/v1/options/retries";
 
+import "google/protobuf/any.proto";
 import "google/protobuf/duration.proto";
+import "google/protobuf/struct.proto";
 import "extproto/ext.proto";
 option (extproto.equal_all) = true;
 option (extproto.hash_all) = true;
 option (extproto.clone_all) = true;
+
+import "validate/validate.proto";
+
 
 // Retry Policy applied at the Route and/or Virtual Hosts levels.
 message RetryPolicy {
@@ -22,4 +27,12 @@ message RetryPolicy {
 
     // Specifies a non-zero upstream timeout per retry attempt. This parameter is optional.
     google.protobuf.Duration per_try_timeout = 3;
+
+
+    // The maximum number of times host selection will be reattempted before giving up, at which
+    // point the host that was last selected will be routed to. If unspecified, this will default to
+    // retrying once.
+    uint64 host_selection_retry_max_attempts = 4;
+
+    string retry_host_predicate_name = 5;
 }

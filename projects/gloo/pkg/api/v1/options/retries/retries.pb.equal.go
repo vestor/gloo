@@ -64,5 +64,13 @@ func (m *RetryPolicy) Equal(that interface{}) bool {
 		}
 	}
 
+	if m.GetHostSelectionRetryMaxAttempts() != target.GetHostSelectionRetryMaxAttempts() {
+		return false
+	}
+
+	if strings.Compare(m.GetRetryHostPredicateName(), target.GetRetryHostPredicateName()) != 0 {
+		return false
+	}
+
 	return true
 }

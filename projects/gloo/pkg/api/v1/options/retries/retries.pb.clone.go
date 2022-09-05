@@ -45,5 +45,9 @@ func (m *RetryPolicy) Clone() proto.Message {
 		target.PerTryTimeout = proto.Clone(m.GetPerTryTimeout()).(*github_com_golang_protobuf_ptypes_duration.Duration)
 	}
 
+	target.HostSelectionRetryMaxAttempts = m.GetHostSelectionRetryMaxAttempts()
+
+	target.RetryHostPredicateName = m.GetRetryHostPredicateName()
+
 	return target
 }

@@ -980,10 +980,16 @@ spec:
                     type: object
                   retries:
                     properties:
+                      hostSelectionRetryMaxAttempts:
+                        format: int64
+                        type: integer
+                        x-kubernetes-int-or-string: true
                       numRetries:
                         format: int32
                         type: integer
                       perTryTimeout:
+                        type: string
+                      retryHostPredicateName:
                         type: string
                       retryOn:
                         type: string

@@ -67,5 +67,14 @@ func (m *RetryPolicy) Hash(hasher hash.Hash64) (uint64, error) {
 		}
 	}
 
+	err = binary.Write(hasher, binary.LittleEndian, m.GetHostSelectionRetryMaxAttempts())
+	if err != nil {
+		return 0, err
+	}
+
+	if _, err = hasher.Write([]byte(m.GetRetryHostPredicateName())); err != nil {
+		return 0, err
+	}
+
 	return hasher.Sum64(), nil
 }

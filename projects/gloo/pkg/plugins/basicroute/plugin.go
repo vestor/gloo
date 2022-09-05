@@ -228,8 +228,14 @@ func convertPolicy(policy *retries.RetryPolicy) *envoy_config_route_v3.RetryPoli
 	}
 
 	return &envoy_config_route_v3.RetryPolicy{
-		RetryOn:       policy.GetRetryOn(),
-		NumRetries:    &wrappers.UInt32Value{Value: numRetries},
-		PerTryTimeout: policy.GetPerTryTimeout(),
+		RetryOn:                       policy.GetRetryOn(),
+		NumRetries:                    &wrappers.UInt32Value{Value: numRetries},
+		PerTryTimeout:                 policy.GetPerTryTimeout(),
+		HostSelectionRetryMaxAttempts: int64(policy.GetHostSelectionRetryMaxAttempts()),
+		RetryHostPredicate: []*envoy_config_route_v3.RetryPolicy_RetryHostPredicate{
+			{
+				Name: policy.GetRetryHostPredicateName(),
+			},
+		},
 	}
 }
